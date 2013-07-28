@@ -1,0 +1,466 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A0C4C68D17A4FBB1008E856D /* repattern.h in Headers */ = {isa = PBXBuildFile; fileRef = A0C4C68C17A4FBB1008E856D /* repattern.h */; };
+		A0C4C69017A4FBBB008E856D /* librepattern-version.c in Sources */ = {isa = PBXBuildFile; fileRef = A0C4C68E17A4FBBB008E856D /* librepattern-version.c */; };
+		A0C4C69117A4FBBB008E856D /* librepattern-version.h in Headers */ = {isa = PBXBuildFile; fileRef = A0C4C68F17A4FBBB008E856D /* librepattern-version.h */; };
+		A0C4C6A617A50B9C008E856D /* librepattern-re-internet.c in Sources */ = {isa = PBXBuildFile; fileRef = A0C4C69F17A5010D008E856D /* librepattern-re-internet.c */; };
+		A0C4C6AA17A50E15008E856D /* librepattern-re.c in Sources */ = {isa = PBXBuildFile; fileRef = A0C4C6A817A50E15008E856D /* librepattern-re.c */; };
+		A0C4C6AB17A50E15008E856D /* librepattern-re.h in Headers */ = {isa = PBXBuildFile; fileRef = A0C4C6A917A50E15008E856D /* librepattern-re.h */; };
+		A0C4C6AE17A51644008E856D /* librepattern-api.c in Sources */ = {isa = PBXBuildFile; fileRef = A0C4C6AC17A51644008E856D /* librepattern-api.c */; };
+		A0C4C6AF17A51644008E856D /* librepattern-api.h in Headers */ = {isa = PBXBuildFile; fileRef = A0C4C6AD17A51644008E856D /* librepattern-api.h */; };
+		A0C4C6C017A529A7008E856D /* repattern.c in Sources */ = {isa = PBXBuildFile; fileRef = A0C4C6B017A51FF9008E856D /* repattern.c */; };
+		A0C4C6C117A529AE008E856D /* liblibrepattern.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C4C66B17A4EF29008E856D /* liblibrepattern.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A0C4C69A17A4FC2A008E856D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A0C4C69317A4FC29008E856D /* bindletools.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A01156E9175B0118008E66FA;
+			remoteInfo = bindle;
+		};
+		A0C4C6BE17A5299F008E856D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A0C4C66317A4EF29008E856D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A0C4C66A17A4EF29008E856D;
+			remoteInfo = librepattern;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A0C4C6B317A5201C008E856D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A0C4C66B17A4EF29008E856D /* liblibrepattern.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibrepattern.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0C4C67217A4F58E008E856D /* acinclude.m4 */ = {isa = PBXFileReference; explicitFileType = text.script; path = acinclude.m4; sourceTree = "<group>"; };
+		A0C4C67317A4F58E008E856D /* configure.ac */ = {isa = PBXFileReference; explicitFileType = text.script; path = configure.ac; sourceTree = "<group>"; };
+		A0C4C67417A4F58E008E856D /* Makefile.am */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; indentWidth = 8; path = Makefile.am; sourceTree = "<group>"; tabWidth = 8; usesTabs = 1; };
+		A0C4C67517A4F5AE008E856D /* ChangeLog */ = {isa = PBXFileReference; lastKnownFileType = text; path = ChangeLog; sourceTree = "<group>"; };
+		A0C4C67617A4F5AE008E856D /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		A0C4C67717A4F5AE008E856D /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		A0C4C67D17A4FA05008E856D /* git-tar-name.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "git-tar-name.txt"; sourceTree = "<group>"; };
+		A0C4C68C17A4FBB1008E856D /* repattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = repattern.h; sourceTree = "<group>"; };
+		A0C4C68E17A4FBBB008E856D /* librepattern-version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "librepattern-version.c"; sourceTree = "<group>"; };
+		A0C4C68F17A4FBBB008E856D /* librepattern-version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "librepattern-version.h"; sourceTree = "<group>"; };
+		A0C4C69317A4FC29008E856D /* bindletools.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = bindletools.xcodeproj; path = contrib/bindletools/bindletools.xcodeproj; sourceTree = "<group>"; };
+		A0C4C69C17A4FD7A008E856D /* librepattern.sym */ = {isa = PBXFileReference; explicitFileType = text.script; path = librepattern.sym; sourceTree = "<group>"; };
+		A0C4C69F17A5010D008E856D /* librepattern-re-internet.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "librepattern-re-internet.c"; sourceTree = "<group>"; };
+		A0C4C6A017A5010D008E856D /* librepattern-re-internet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "librepattern-re-internet.h"; sourceTree = "<group>"; };
+		A0C4C6A317A50704008E856D /* repattern-strings-footer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "repattern-strings-footer.h"; sourceTree = "<group>"; };
+		A0C4C6A417A50704008E856D /* repattern-strings-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "repattern-strings-header.h"; sourceTree = "<group>"; };
+		A0C4C6A517A50704008E856D /* repattern-strings-internet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "repattern-strings-internet.h"; sourceTree = "<group>"; };
+		A0C4C6A717A50C32008E856D /* repattern-strings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "repattern-strings.h"; sourceTree = "<group>"; };
+		A0C4C6A817A50E15008E856D /* librepattern-re.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "librepattern-re.c"; sourceTree = "<group>"; };
+		A0C4C6A917A50E15008E856D /* librepattern-re.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "librepattern-re.h"; sourceTree = "<group>"; };
+		A0C4C6AC17A51644008E856D /* librepattern-api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "librepattern-api.c"; sourceTree = "<group>"; };
+		A0C4C6AD17A51644008E856D /* librepattern-api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "librepattern-api.h"; sourceTree = "<group>"; };
+		A0C4C6B017A51FF9008E856D /* repattern.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = repattern.c; sourceTree = "<group>"; };
+		A0C4C6B517A5201C008E856D /* repattern */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = repattern; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A0C4C66817A4EF29008E856D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A0C4C6B217A5201C008E856D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0C4C6C117A529AE008E856D /* liblibrepattern.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A0C4C66217A4EF29008E856D = {
+			isa = PBXGroup;
+			children = (
+				A0C4C67217A4F58E008E856D /* acinclude.m4 */,
+				A0C4C67517A4F5AE008E856D /* ChangeLog */,
+				A0C4C67617A4F5AE008E856D /* COPYING */,
+				A0C4C67317A4F58E008E856D /* configure.ac */,
+				A0C4C67417A4F58E008E856D /* Makefile.am */,
+				A0C4C67717A4F5AE008E856D /* README */,
+				A0C4C67817A4FA05008E856D /* build-aux */,
+				A0C4C69217A4FC17008E856D /* contrib */,
+				A0C4C68317A4FA05008E856D /* include */,
+				A0C4C68417A4FA05008E856D /* lib */,
+				A0C4C68517A4FA05008E856D /* m4 */,
+				A0C4C68B17A4FA05008E856D /* src */,
+				A0C4C69D17A4FF91008E856D /* tests */,
+				A0C4C66C17A4EF29008E856D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A0C4C66C17A4EF29008E856D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A0C4C66B17A4EF29008E856D /* liblibrepattern.a */,
+				A0C4C6B517A5201C008E856D /* repattern */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A0C4C67817A4FA05008E856D /* build-aux */ = {
+			isa = PBXGroup;
+			children = (
+				A0C4C67D17A4FA05008E856D /* git-tar-name.txt */,
+			);
+			path = "build-aux";
+			sourceTree = "<group>";
+		};
+		A0C4C68317A4FA05008E856D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				A0C4C6A717A50C32008E856D /* repattern-strings.h */,
+				A0C4C6A317A50704008E856D /* repattern-strings-footer.h */,
+				A0C4C6A417A50704008E856D /* repattern-strings-header.h */,
+				A0C4C6A517A50704008E856D /* repattern-strings-internet.h */,
+				A0C4C68C17A4FBB1008E856D /* repattern.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		A0C4C68417A4FA05008E856D /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				A0C4C69C17A4FD7A008E856D /* librepattern.sym */,
+				A0C4C6AC17A51644008E856D /* librepattern-api.c */,
+				A0C4C6AD17A51644008E856D /* librepattern-api.h */,
+				A0C4C6A817A50E15008E856D /* librepattern-re.c */,
+				A0C4C6A917A50E15008E856D /* librepattern-re.h */,
+				A0C4C69F17A5010D008E856D /* librepattern-re-internet.c */,
+				A0C4C6A017A5010D008E856D /* librepattern-re-internet.h */,
+				A0C4C68E17A4FBBB008E856D /* librepattern-version.c */,
+				A0C4C68F17A4FBBB008E856D /* librepattern-version.h */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		A0C4C68517A4FA05008E856D /* m4 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = m4;
+			sourceTree = "<group>";
+		};
+		A0C4C68B17A4FA05008E856D /* src */ = {
+			isa = PBXGroup;
+			children = (
+				A0C4C6B017A51FF9008E856D /* repattern.c */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		A0C4C69217A4FC17008E856D /* contrib */ = {
+			isa = PBXGroup;
+			children = (
+				A0C4C69317A4FC29008E856D /* bindletools.xcodeproj */,
+			);
+			name = contrib;
+			sourceTree = "<group>";
+		};
+		A0C4C69417A4FC29008E856D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A0C4C69B17A4FC2A008E856D /* libbindle.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A0C4C69D17A4FF91008E856D /* tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = tests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		A0C4C66917A4EF29008E856D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0C4C68D17A4FBB1008E856D /* repattern.h in Headers */,
+				A0C4C6AB17A50E15008E856D /* librepattern-re.h in Headers */,
+				A0C4C69117A4FBBB008E856D /* librepattern-version.h in Headers */,
+				A0C4C6AF17A51644008E856D /* librepattern-api.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		A0C4C66A17A4EF29008E856D /* librepattern */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A0C4C66F17A4EF29008E856D /* Build configuration list for PBXNativeTarget "librepattern" */;
+			buildPhases = (
+				A0C4C66717A4EF29008E856D /* Sources */,
+				A0C4C66817A4EF29008E856D /* Frameworks */,
+				A0C4C66917A4EF29008E856D /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = librepattern;
+			productName = repattern;
+			productReference = A0C4C66B17A4EF29008E856D /* liblibrepattern.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		A0C4C6B417A5201C008E856D /* repattern */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A0C4C6BB17A5201C008E856D /* Build configuration list for PBXNativeTarget "repattern" */;
+			buildPhases = (
+				A0C4C6B117A5201C008E856D /* Sources */,
+				A0C4C6B217A5201C008E856D /* Frameworks */,
+				A0C4C6B317A5201C008E856D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A0C4C6BF17A5299F008E856D /* PBXTargetDependency */,
+			);
+			name = repattern;
+			productName = repattern;
+			productReference = A0C4C6B517A5201C008E856D /* repattern */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A0C4C66317A4EF29008E856D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Bindle Binaries";
+			};
+			buildConfigurationList = A0C4C66617A4EF29008E856D /* Build configuration list for PBXProject "repattern" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A0C4C66217A4EF29008E856D;
+			productRefGroup = A0C4C66C17A4EF29008E856D /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = A0C4C69417A4FC29008E856D /* Products */;
+					ProjectRef = A0C4C69317A4FC29008E856D /* bindletools.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				A0C4C66A17A4EF29008E856D /* librepattern */,
+				A0C4C6B417A5201C008E856D /* repattern */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		A0C4C69B17A4FC2A008E856D /* libbindle.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libbindle.a;
+			remoteRef = A0C4C69A17A4FC2A008E856D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A0C4C66717A4EF29008E856D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0C4C69017A4FBBB008E856D /* librepattern-version.c in Sources */,
+				A0C4C6AA17A50E15008E856D /* librepattern-re.c in Sources */,
+				A0C4C6AE17A51644008E856D /* librepattern-api.c in Sources */,
+				A0C4C6A617A50B9C008E856D /* librepattern-re-internet.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A0C4C6B117A5201C008E856D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0C4C6C017A529A7008E856D /* repattern.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A0C4C6BF17A5299F008E856D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A0C4C66A17A4EF29008E856D /* librepattern */;
+			targetProxy = A0C4C6BE17A5299F008E856D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		A0C4C66D17A4EF29008E856D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = include;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A0C4C66E17A4EF29008E856D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = include;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		A0C4C67017A4EF29008E856D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A0C4C67117A4EF29008E856D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A0C4C6BC17A5201C008E856D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A0C4C6BD17A5201C008E856D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A0C4C66617A4EF29008E856D /* Build configuration list for PBXProject "repattern" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0C4C66D17A4EF29008E856D /* Debug */,
+				A0C4C66E17A4EF29008E856D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A0C4C66F17A4EF29008E856D /* Build configuration list for PBXNativeTarget "librepattern" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0C4C67017A4EF29008E856D /* Debug */,
+				A0C4C67117A4EF29008E856D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A0C4C6BB17A5201C008E856D /* Build configuration list for PBXNativeTarget "repattern" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0C4C6BC17A5201C008E856D /* Debug */,
+				A0C4C6BD17A5201C008E856D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A0C4C66317A4EF29008E856D /* Project object */;
+}
