@@ -1,5 +1,5 @@
 #
-#   Repattern Library
+#   RE Pattern Library
 #   Copyright (C) 2013 Bindle Binaries <syzdek@bindlebinaries.com>.
 #
 #   @BINDLE_BINARIES_BSD_LICENSE_START@

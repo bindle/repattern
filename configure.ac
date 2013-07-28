@@ -1,5 +1,5 @@
 #
-#   Repattern Library
+#   RE Pattern Library
 #   Copyright (C) 2013 Bindle Binaries <syzdek@bindlebinaries.com>.
 #
 #   @BINDLE_BINARIES_BSD_LICENSE_START@
@@ -38,7 +38,7 @@ AC_PREREQ([2.65])
 
 AC_COPYRIGHT([Copyright (c) 2013 Bindle Binaries <syzdek@bindlebinaries.com>.])
 AC_REVISION(0.2)
-AC_INIT([Repattern Library],[0.0],[syzdek@bindlebinaries.com],[repattern])
+AC_INIT([RE Pattern Library],[0.0],[syzdek@bindlebinaries.com],[repattern])
 
 AC_SUBST([RELEASE_MONTH],["September 2012"])
 AC_SUBST([PACKAGE_COPYRIGHT], ["Copyright (C) 2013 Bindle Binaries <syzdek@bindlebinaries.com>."])

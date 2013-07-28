@@ -1,5 +1,5 @@
 #
-#   Repattern Library
+#   RE Pattern Library
 #   Copyright (C) 2013 Bindle Binaries <syzdek@bindlebinaries.com>.
 #
 #   @BINDLE_BINARIES_BSD_LICENSE_START@
@@ -48,7 +48,7 @@ AM_CFLAGS				= -O2 $(CFLAGS_WARNINGS)
 AM_CXXFLAGS				= -O2 @AM_CXXFLAGS@
 AM_OBJCFLAGS				= -O2 @AM_OBJCFLAGS@
 AM_CPPFLAGS				= -O2 -UPMARK -DHAVE_CONFIG_H=1 -I$(top_builddir)/include -I$(top_srcdir)/include
-ACLOCAL_AMFLAGS				= -I m4 -W all -W error
+ACLOCAL_AMFLAGS				= -I m4 -W all -W error -I contrib/bindletools/m4
 AM_MAKEINFOFLAGS                        = --no-split
 DEFS					=
 
