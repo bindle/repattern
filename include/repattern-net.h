@@ -98,8 +98,7 @@
    "[0-9a-f]{1,4}:((:[0-9a-f]{1,4}){1,6})|"                  /* 1::3:4:5:6:7:8   1::3:4:5:6:7:8  1::8            */ \
    ":((:[0-9a-f]{1,4}){1,7}|:)|"                             /* ::2:3:4:5:6:7:8  ::2:3:4:5:6:7:8 ::8       ::    */ \
    "(fe80:(:[0-9a-f]{1,4}){1,4})%([0-9a-zA-Z]{1,}){0,1}|"    /* fe80::7:8%eth0   fe80::7:8%1     (link-local IPv6 addresses with zone index) */ \
-   ":(:ffff(:0{1,4}){0,1}){0,1}:" REPATTERN_IPV4_ADDRESS "|" /* ::255.255.255.255   ::ffff:255.255.255.255  ::ffff:0:255.255.255.255  (IPv4-mapped IPv6 addresses and IPv4-translated addresses) */ \
-   "([0-9a-f]{1,4}:){1,4}:" REPATTERN_IPV4_ADDRESS           /* 2001:db8:3:4::192.0.2.33  64:ff9b::192.0.2.33 (IPv4-Embedded IPv6 Address)  */ \
+   "(([0-9a-f]{1,4}:){1,4}|:(:ffff(:0{1,4}){0,1}){0,1}):" REPATTERN_IPV4_ADDRESS /* 2001:db8:3:4::192.0.2.33  64:ff9b::192.0.2.33 ::255.255.255.255   ::ffff:255.255.255.255  ::ffff:0:255.255.255.255  (IPv4-Embedded IPv6 Addresses, IPv4-mapped IPv6 addresses and IPv4-translated addresses) */ \
    ")"
 
 

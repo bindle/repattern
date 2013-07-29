@@ -126,10 +126,9 @@ repattern_data repattern_ipv6_address =
    REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_IPV6_ADDRESS, REPATTERN_CONTAINS_DEFAULT_FLAGS),
    REPATTERN_IS_STATE_INITIALIZER(REPATTERN_IPV6_ADDRESS, REPATTERN_IS_DEFAULT_FLAGS),
    &repattern_regex_ipv6_address,
-   //0, NULL, NULL
-   3,
-   (const char *[5]){  "IP Address", "Link-local Address", "Link-local Zone", NULL},
-   (const size_t [5]){ 0,            17,                   19,                0 }
+   4,
+   (const char *[5]){  "IP Address", "Link-local Address", "Link-local Zone", "Embedded IPv4 Address", NULL },
+   (const size_t [5]){ 0,            17,                   19,                24,                      0 }
 };
 
 
