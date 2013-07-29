@@ -67,7 +67,8 @@ const char * repattern_api_release_info(void);
 const char * repattern_api_version_info(void);
 
 // regex functions
-int repattern_is(int reid, const char * str, int pflags);
+int repattern_is(int reid, const char * str, size_t * nmatchp,
+   regmatch_t pmatch[], int pflags);
 int repattern_contains(int reid, const char * str, size_t * nmatchp,
    regmatch_t pmatch[], int pflags);
 

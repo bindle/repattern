@@ -136,14 +136,15 @@ repattern_data * repattern_get_data(int reid)
 }
 
 
-int repattern_is(int reid, const char * str, int pflags)
+int repattern_is(int reid, const char * str, size_t * nmatchp,
+   regmatch_t pmatch[], int pflags)
 {
    repattern_data * ptr;
    assert(reid != 0);
    assert(str  != NULL);
    if ((ptr = repattern_get_data(reid)) == NULL)
       return(REG_INVARG);
-   return(repattern_re(&ptr->is_state, ptr->preq, str, 0, NULL, NULL, NULL, pflags));
+   return(repattern_re(&ptr->contains_state, ptr->preq, str, ptr->nsub, ptr->subindexes, nmatchp, pmatch, pflags));
 }
 
 

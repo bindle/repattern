@@ -87,6 +87,8 @@
 int main(int argc, char * argv[]);
 const char * prog_name(const char * name);
 void repattern_usage(const char * name);
+void repattern_verbose(int verbose, int reid, const char * str, size_t nmatch,
+   regmatch_t * matches);
 void repattern_version(const char * name);
 
 
@@ -303,8 +305,6 @@ int main(int argc, char * argv[])
    switch(cmd)
    {
       case REPATTERN_CMD_CONTAINS:
-      if (verbose > 2)
-         printf("regular expression: %s\n", repattern_string(reid));
       nmatch = REPATTERN_MAX_MATCHES;
       err = repattern_contains(reid, argv[optind], &nmatch, matches, re_flags);
 
@@ -312,38 +312,43 @@ int main(int argc, char * argv[])
          break;
       if ((err))
       {
-         printf("not found\n");
+         if (sub_index == -1)
+            printf("not found\n");
          break;
       };
+
+      if ( (verbose < 1) && (sub_index == -1) )
+         printf("found\n");
 
       if (sub_index >= 0)
          if (sub_index < (ssize_t)nmatch)
             if ((len = repattern_cpymatch(str, 1024, argv[optind], &matches[sub_index])))
                printf("%s\n", str);
 
-      if ( (verbose < 1) && (sub_index == -1) )
-         printf("found\n");
-
+      repattern_verbose(verbose, reid, argv[optind], nmatch, matches);
+      /*
       if (verbose > 0)
          if ((len = repattern_cpymatch(str, 1024, argv[optind], &matches[0])))
-               printf("match: %s\n", str);
+               printf("matched: %s\n", str);
 
       if (verbose > 1)
          for(c = 0; c < (int)nmatch; c++)
             if ((len = repattern_cpymatch(str, 1024, argv[optind], &matches[c])) > 0)
                printf("   submatch %i: %s\n", c, str);
+      */
       break;
 
       case REPATTERN_CMD_IS:
-      if (verbose > 2)
-         printf("regular expression: %s\n", repattern_string(reid));
-      err = repattern_is(reid, argv[optind], re_flags);
-      if (!(quiet))
+      err = repattern_is(reid, argv[optind], &nmatch, matches, re_flags);
+      if ((quiet))
+         break;
+      if (sub_index == -1)
       {
          if (!(err))
             printf("matched\n");
          else
             printf("not matched\n");
+         break;
       };
       break;
 
@@ -413,6 +418,48 @@ void repattern_usage(const char * name)
          "Report bugs to <%s>.\n"
       ), name, name, name, PACKAGE_BUGREPORT
    );
+   return;
+}
+
+
+void repattern_verbose(int verbose, int reid, const char * str, size_t nmatch,
+   regmatch_t * matches)
+{
+   size_t        x;
+   size_t        pos;
+   int           len;
+   int           slen;
+   const char ** labels;
+   size_t        labels_len;
+   char          label[1024];
+   char          buff[1024];
+
+   if (verbose > 0)
+      if ((repattern_cpymatch(buff, 1024, str, &matches[0])))
+            printf("matched: %s\n", buff);
+
+   if (verbose > 1)
+   {
+      len    = 0;
+      labels = repattern_labels(reid, &labels_len);
+      for(x = 0; x < 2; x++)
+      {
+         for(pos = 0; pos < nmatch; pos++)
+         {
+            if ((verbose > 2) && (pos < labels_len))
+               slen = snprintf(label, 1024, "%zu. %s:", pos, labels[pos]);
+            else
+               slen = snprintf(label, 1024, "submodule %zu:", pos);
+            if (x == 0)
+               if (slen > len)
+                  len = slen;
+            if (x == 1)
+               if (repattern_cpymatch(buff, 1024, str, &matches[pos]) > 0)
+                  printf("   %-*s %s\n", len, label, buff);
+         };
+      };
+   };
+
    return;
 }
 
