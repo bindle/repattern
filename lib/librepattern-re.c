@@ -57,6 +57,7 @@ int repattern_re(repattern_state * state, regex_t * preq,
 {
    int          err;
    regmatch_t * local_pmatch;
+   size_t       local_nsub;
    size_t       size;
    size_t       nmatch;
    size_t       pos;
@@ -79,17 +80,21 @@ int repattern_re(repattern_state * state, regex_t * preq,
    if (nsub > preq->re_nsub)
       nsub = preq->re_nsub;
 
-   // allocates memory for sub matches
-   size  = sizeof(regmatch_t);
-   size *= preq->re_nsub;
-   if ((local_pmatch = malloc(size)) == NULL)
-      return(REG_ESPACE);
-   memset(local_pmatch, 0, size);
-
-   // determines number of matches
-   nmatch = 0;
+   // determines if submatches will be recorded
+   nmatch       = 0;
+   local_nsub   = 0;
+   local_pmatch = NULL;
    if ((nmatchp))
    {
+      // allocates memory for sub matches
+      local_nsub  = preq->re_nsub;
+      size        = sizeof(regmatch_t);
+      size       *= local_nsub;
+      if ((local_pmatch = malloc(size)) == NULL)
+         return(REG_ESPACE);
+      memset(local_pmatch, 0, size);
+
+      // determines number of matches to record
       nmatch = *nmatchp;
       if ((*nmatchp > nsub) && (nsub > 0))
       {
@@ -105,27 +110,31 @@ int repattern_re(repattern_state * state, regex_t * preq,
 
    // executes regular expressions
    flags = 0;
-   if ((err = regexec(preq, str, preq->re_nsub, local_pmatch, flags)) != 0)
+   if ((err = regexec(preq, str, local_nsub, local_pmatch, flags)) != 0)
    {
       pthread_mutex_unlock(&state->mutex);
       return(err);
    };
 
    // copies result
-   if ( ((nmatchp)) && (nsub > 0) )
+   if ((local_pmatch))
    {
-      size  = sizeof(regmatch_t);
-      for(pos = 0; pos < nsub; pos++)
-         memcpy(&pmatch[pos], &local_pmatch[subind[pos]], size);
-   }
-   else if ((nmatchp))
-   {
-      size  = sizeof(regmatch_t);
-      size *= nmatch;
-      memcpy(pmatch, local_pmatch, size);
+      if (nsub > 0)
+      {
+         size  = sizeof(regmatch_t);
+         for(pos = 0; pos < nsub; pos++)
+            memcpy(&pmatch[pos], &local_pmatch[subind[pos]], size);
+      }
+      else
+      {
+         size  = sizeof(regmatch_t);
+         size *= nmatch;
+         memcpy(pmatch, local_pmatch, size);
+      };
    };
 
-   free(local_pmatch);
+   if ((local_pmatch))
+      free(local_pmatch);
 
    return(err);
 }
