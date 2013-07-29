@@ -121,26 +121,27 @@ int main(int argc, char * argv[])
    static struct option long_opt[] =
    {
       // standard options
-      {"help",          no_argument, 0, 'h'},
-      {"quiet",         no_argument, 0, 'q'},
-      {"silent",        no_argument, 0, 'q'},
-      {"verbose",       no_argument, 0, 'v'},
-      {"version",       no_argument, 0, 'V'},
+      {"help",              no_argument,       0, 'h'},
+      {"quiet",             no_argument,       0, 'q'},
+      {"silent",            no_argument,       0, 'q'},
+      {"verbose",           no_argument,       0, 'v'},
+      {"version",           no_argument,       0, 'V'},
+      {"select-submatch",   required_argument, 0, 's'},
       // actions
-      {"contains",      no_argument, 0, 'c'},
-      {"is",            no_argument, 0, 'i'},
-      {"list",          no_argument, 0, 'l'},
-      {"print",         no_argument, 0, 'p'},
+      {"contains",          no_argument,       0, 'c'},
+      {"is",                no_argument,       0, 'i'},
+      {"submatches",        no_argument,       0, 'l'},
+      {"print",             no_argument,       0, 'p'},
       // regular expressions
-      {"email-address", no_argument, 0, REPATTERN_RE_EMAIL_ADDRESS},
-      {"host",          no_argument, 0, REPATTERN_RE_HOST},
-      {"hostname",      no_argument, 0, REPATTERN_RE_HOSTNAME},
-      {"ip-address",    no_argument, 0, REPATTERN_RE_IP_ADDRESS},
-      {"ip-port",       no_argument, 0, REPATTERN_RE_IP_PORT},
-      {"ipv4-address",  no_argument, 0, REPATTERN_RE_IPV4_ADDRESS},
-      {"ipv4-port",     no_argument, 0, REPATTERN_RE_IPV4_PORT},
-      {"ipv6-address",  no_argument, 0, REPATTERN_RE_IPV6_ADDRESS},
-      {"ipv6-port",     no_argument, 0, REPATTERN_RE_IPV6_PORT},
+      {"email-address",     no_argument,       0, REPATTERN_RE_EMAIL_ADDRESS},
+      {"host",              no_argument,       0, REPATTERN_RE_HOST},
+      {"hostname",          no_argument,       0, REPATTERN_RE_HOSTNAME},
+      {"ip-address",        no_argument,       0, REPATTERN_RE_IP_ADDRESS},
+      {"ip-port",           no_argument,       0, REPATTERN_RE_IP_PORT},
+      {"ipv4-address",      no_argument,       0, REPATTERN_RE_IPV4_ADDRESS},
+      {"ipv4-port",         no_argument,       0, REPATTERN_RE_IPV4_PORT},
+      {"ipv6-address",      no_argument,       0, REPATTERN_RE_IPV6_ADDRESS},
+      {"ipv6-port",         no_argument,       0, REPATTERN_RE_IPV6_PORT},
       {NULL, 0, 0, 0  }
    };
 
@@ -326,30 +327,20 @@ int main(int argc, char * argv[])
                printf("%s\n", str);
 
       repattern_verbose(verbose, reid, argv[optind], nmatch, matches);
-      /*
-      if (verbose > 0)
-         if ((len = repattern_cpymatch(str, 1024, argv[optind], &matches[0])))
-               printf("matched: %s\n", str);
-
-      if (verbose > 1)
-         for(c = 0; c < (int)nmatch; c++)
-            if ((len = repattern_cpymatch(str, 1024, argv[optind], &matches[c])) > 0)
-               printf("   submatch %i: %s\n", c, str);
-      */
       break;
 
       case REPATTERN_CMD_IS:
       err = repattern_is(reid, argv[optind], &nmatch, matches, re_flags);
       if ((quiet))
          break;
-      if (sub_index == -1)
+      if (!(err))
       {
-         if (!(err))
+         if (verbose < 1)
             printf("matched\n");
-         else
-            printf("not matched\n");
-         break;
-      };
+         repattern_verbose(verbose, reid, argv[optind], nmatch, matches);
+      }
+      else
+         printf("not matched\n");
       break;
 
       case REPATTERN_CMD_LIST_SUB:
@@ -394,7 +385,7 @@ void repattern_usage(const char * name)
          "Commands:\n"
          "  -c, --contains            attempts to find pattern withing string\n"
          "  -i, --is                  determines if string contains only pattern\n"
-         "  -l, --list                list available submatches\n"
+         "  -l, --submatches          list available submatches\n"
          "  -p, --print               display regular expression\n"
          "Options:\n"
          "  -h, --help                print this help and exit\n"
@@ -404,6 +395,7 @@ void repattern_usage(const char * name)
          "  -s  index                 display submatch at index (--contains command only)\n"
          "  -v, --verbose             print verbose messages\n"
          "  -V, --version             print version number and exit\n"
+         "  --select-submatch=index   same as `-s'\n"
          "Patterns:\n"
          "  --email-address\n"
          "  --host\n"
