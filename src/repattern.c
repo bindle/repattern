@@ -330,15 +330,11 @@ int main(int argc, char * argv[])
       break;
 
       case REPATTERN_CMD_IS:
-      err = repattern_is(reid, argv[optind], &nmatch, matches, re_flags);
+      err = repattern_is(reid, argv[optind], re_flags);
       if ((quiet))
          break;
       if (!(err))
-      {
-         if (verbose < 1)
-            printf("matched\n");
-         repattern_verbose(verbose, reid, argv[optind], nmatch, matches);
-      }
+         printf("matched\n");
       else
          printf("not matched\n");
       break;
