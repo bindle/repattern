@@ -43,6 +43,7 @@
 ///////////////
 
 #include <repattern.h>
+#include <stdio.h>
 #include <pthread.h>
 #include <regex.h>
 
@@ -57,16 +58,53 @@ typedef struct
 {
    pthread_mutex_t   mutex;
    int               initialized;
-   const char      * pattern;
    int               flags;
+   const char      * pattern;
 } repattern_state;
+
 #define REPATTERN_CONTAINS_STATE_INITIALIZER(pattern, flags) \
-   { PTHREAD_MUTEX_INITIALIZER, 0, pattern, flags }
+   { \
+      PTHREAD_MUTEX_INITIALIZER, \
+      0, \
+      flags, \
+      pattern, \
+   }
+
 #define REPATTERN_IS_STATE_INITIALIZER(pattern, flags) \
-   { PTHREAD_MUTEX_INITIALIZER, 0, "^" pattern "$", flags }
+   { \
+      PTHREAD_MUTEX_INITIALIZER, \
+      0, \
+      flags, \
+      "^" pattern "$", \
+   }
 
-#define REPATTERN_DEFAULT_FLAGS REG_EXTENDED
+#define REPATTERN_CONTAINS_DEFAULT_FLAGS (REG_EXTENDED)
+#define REPATTERN_IS_DEFAULT_FLAGS (REG_EXTENDED | REG_NOSUB)
 
+
+typedef struct
+{
+   repattern_state   contains_state;
+   repattern_state   is_state;
+   regex_t         * preq;
+   size_t            nsub;
+   const char     ** subnames;
+   const size_t    * subindexes;
+} repattern_data;
+
+#define REPATTERN_REGEX(pattern, flags) \
+   { \
+      PTHREAD_MUTEX_INITIALIZER, \
+      0, \
+      flags, \
+      pattern, \
+   }, \
+   { \
+      PTHREAD_MUTEX_INITIALIZER, \
+      0, \
+      flags, \
+      "^" pattern "$", \
+   }
 
 //////////////////
 //              //
@@ -75,7 +113,8 @@ typedef struct
 //////////////////
 
 int repattern_re(repattern_state * state, regex_t * preq,
-   const char * str, size_t * nmatchp, regmatch_t pmatch[], int flags);
+   const char * str, size_t nsub, const size_t * subind, size_t * nmatchp,
+   regmatch_t pmatch[], int flags);
 
 
 #endif /* end of header */

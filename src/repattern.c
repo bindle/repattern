@@ -44,6 +44,7 @@
 
 #include <stdio.h>
 #include <assert.h>
+#include <stdlib.h>
 #include <getopt.h>
 #include <string.h>
 #include <repattern.h>
@@ -72,6 +73,7 @@
 #define REPATTERN_CMD_PRINT     2
 #define REPATTERN_CMD_CONTAINS  3
 #define REPATTERN_CMD_IS        5
+#define REPATTERN_CMD_LIST_SUB  6
 
 #define REPATTERN_MAX_MATCHES    50
 
@@ -96,22 +98,24 @@ void repattern_version(const char * name);
 
 int main(int argc, char * argv[])
 {
-   int          cmd;
-   int          reid;
-   int          re_flags;
-   int          c;
-   int          long_optindex;
-   int          err;
-   int          quiet;
-   int          verbose;
-   size_t       nmatch;
-   regmatch_t   matches[REPATTERN_MAX_MATCHES];
-   const char * arg;
-   char         str[1024];
-   int          len;
+   int           cmd;
+   int           reid;
+   int           re_flags;
+   int           c;
+   int           long_optindex;
+   int           err;
+   int           quiet;
+   int           verbose;
+   ssize_t       sub_index;
+   size_t        nmatch;
+   regmatch_t    matches[REPATTERN_MAX_MATCHES];
+   char          str[1024];
+   size_t        len;
+   size_t        labels_len;
+   const char ** labels;
 
    // getopt options
-   static char   short_opt[] = "cdhIiLqpvV";
+   static char   short_opt[] = "cdhIiLqps:vV";
    static struct option long_opt[] =
    {
       // standard options
@@ -123,6 +127,7 @@ int main(int argc, char * argv[])
       // actions
       {"contains",      no_argument, 0, 'c'},
       {"is",            no_argument, 0, 'i'},
+      {"list",          no_argument, 0, 'l'},
       {"print",         no_argument, 0, 'p'},
       // regular expressions
       {"email-address", no_argument, 0, REPATTERN_RE_EMAIL_ADDRESS},
@@ -137,11 +142,12 @@ int main(int argc, char * argv[])
       {NULL, 0, 0, 0  }
    };
 
-   quiet    = 0;
-   verbose  = 0;
-   re_flags = 0;
-   cmd      = 0;
-   reid     = 0;
+   quiet     = 0;
+   verbose   = 0;
+   re_flags  = 0;
+   cmd       = 0;
+   reid      = 0;
+   sub_index = -1;
 
    // processes command line arguments
    optreset = 1;
@@ -159,6 +165,12 @@ int main(int argc, char * argv[])
          return(-2);
 
          case 'c':
+         if ((cmd))
+         {
+            fprintf(stderr, "%s: argument conflicts with exiting command -- -c\n", prog_name(argv[0]));
+            fprintf(stderr, "Try `%s --help' for more information.\n", prog_name(argv[0]));
+            return(1);
+         };
          cmd = REPATTERN_CMD_CONTAINS;
          break;
 
@@ -171,7 +183,27 @@ int main(int argc, char * argv[])
          break;
 
          case 'i':
+         if ((cmd))
+         {
+            fprintf(stderr, "%s: argument conflicts with exiting command -- -i\n", prog_name(argv[0]));
+            fprintf(stderr, "Try `%s --help' for more information.\n", prog_name(argv[0]));
+            return(1);
+         };
          cmd = REPATTERN_CMD_IS;
+         break;
+
+         case 'l':
+         if ((cmd))
+         {
+            fprintf(stderr, "%s: argument conflicts with exiting command -- -l\n", prog_name(argv[0]));
+            fprintf(stderr, "Try `%s --help' for more information.\n", prog_name(argv[0]));
+            return(1);
+         };
+         cmd = REPATTERN_CMD_LIST_SUB;
+         break;
+
+         case 's':
+         sub_index = strtol(optarg, NULL, 0);
          break;
 
          case 'L':
@@ -179,6 +211,12 @@ int main(int argc, char * argv[])
          break;
 
          case 'p':
+         if ((cmd))
+         {
+            fprintf(stderr, "%s: argument conflicts with exiting command -- -p\n", prog_name(argv[0]));
+            fprintf(stderr, "Try `%s --help' for more information.\n", prog_name(argv[0]));
+            return(1);
+         };
          cmd = REPATTERN_CMD_PRINT;
          break;
 
@@ -218,21 +256,10 @@ int main(int argc, char * argv[])
       };
    };
 
+   // verifies parsed options
    if (cmd == 0)
    {
       fprintf(stderr, "%s: must specify a command\n", prog_name(argv[0]));
-      fprintf(stderr, "Try `%s --help' for more information.\n", prog_name(argv[0]));
-      return(1);
-   };
-   if ( ((cmd & 0x01)) && (optind == argc) )
-   {
-      fprintf(stderr, "%s: missing required argument for command\n", prog_name(argv[0]));
-      fprintf(stderr, "Try `%s --help' for more information.\n", prog_name(argv[0]));
-      return(1);
-   };
-   if ( ((cmd & 0x01)) && ((optind+1) != argc) )
-   {
-      fprintf(stderr, "%s: invalid arguments -- %s\n", prog_name(argv[0]), argv[optind+1]);
       fprintf(stderr, "Try `%s --help' for more information.\n", prog_name(argv[0]));
       return(1);
    };
@@ -243,16 +270,44 @@ int main(int argc, char * argv[])
       return(1);
    };
 
-   arg = argv[optind];
+   // checks for required arguments to commands
+   switch(cmd)
+   {
+      case REPATTERN_CMD_CONTAINS:
+      case REPATTERN_CMD_IS:
+      if (optind == argc)
+      {
+         fprintf(stderr, "%s: missing required argument for command\n", prog_name(argv[0]));
+         fprintf(stderr, "Try `%s --help' for more information.\n", prog_name(argv[0]));
+         return(1);
+      };
+      if ((optind+1) != argc)
+      {
+         fprintf(stderr, "%s: invalid arguments -- %s\n", prog_name(argv[0]), argv[optind+1]);
+         fprintf(stderr, "Try `%s --help' for more information.\n", prog_name(argv[0]));
+         return(1);
+      };
+      break;
+
+      default:
+      if ((optind) != argc)
+      {
+         fprintf(stderr, "%s: invalid arguments -- %s\n", prog_name(argv[0]), argv[optind]);
+         fprintf(stderr, "Try `%s --help' for more information.\n", prog_name(argv[0]));
+         return(1);
+      };
+      break;
+   };
 
    err = 0;
    switch(cmd)
    {
       case REPATTERN_CMD_CONTAINS:
-      if (verbose > 1)
+      if (verbose > 2)
          printf("regular expression: %s\n", repattern_string(reid));
       nmatch = REPATTERN_MAX_MATCHES;
-      err = repattern_contains(reid, arg, &nmatch, matches, re_flags);
+      err = repattern_contains(reid, argv[optind], &nmatch, matches, re_flags);
+
       if ((quiet))
          break;
       if ((err))
@@ -260,43 +315,50 @@ int main(int argc, char * argv[])
          printf("not found\n");
          break;
       };
-      if (verbose < 1)
+
+      if (sub_index >= 0)
+         if (sub_index < (ssize_t)nmatch)
+            if ((len = repattern_cpymatch(str, 1024, argv[optind], &matches[sub_index])))
+               printf("%s\n", str);
+
+      if ( (verbose < 1) && (sub_index == -1) )
          printf("found\n");
+
       if (verbose > 0)
-      {
-         if ((len = (int)(matches[0].rm_eo - matches[0].rm_so)) > 0)
-         {
-            memset(str, 0, 1024);
-            strncpy(str, &arg[matches[0].rm_so], (size_t)len);
-            if (verbose > 1)
-               printf("match: ");
-            printf("%s\n", str);
-         };
-      };
-      if (verbose > 2)
-      {
+         if ((len = repattern_cpymatch(str, 1024, argv[optind], &matches[0])))
+               printf("match: %s\n", str);
+
+      if (verbose > 1)
          for(c = 0; c < (int)nmatch; c++)
-         {
-            if ((len = (int)(matches[c].rm_eo - matches[c].rm_so)) > 0)
-            {
-               memset(str, 0, 1024);
-               strncpy(str, &arg[matches[c].rm_so], (size_t)len);
-               printf("submatch %i: %s\n", c, str);
-            };
-         };
-      };
+            if ((len = repattern_cpymatch(str, 1024, argv[optind], &matches[c])) > 0)
+               printf("   submatch %i: %s\n", c, str);
       break;
 
       case REPATTERN_CMD_IS:
       if (verbose > 2)
          printf("regular expression: %s\n", repattern_string(reid));
-      err = repattern_is(reid, arg, re_flags);
+      err = repattern_is(reid, argv[optind], re_flags);
       if (!(quiet))
       {
          if (!(err))
             printf("matched\n");
          else
             printf("not matched\n");
+      };
+      break;
+
+      case REPATTERN_CMD_LIST_SUB:
+      labels = repattern_labels(reid, &labels_len);
+      if ((labels))
+      {
+         printf("Available Sub-matches:\n");
+         for(c = 0; c < (int)labels_len; c++)
+            printf("   submatch %i: %s\n", c, labels[c]);
+      }
+      else
+      {
+         fprintf(stderr, "%s: sub-matches unavailable for pattern\n", prog_name(argv[0]));
+         return(1);
       };
       break;
 
@@ -327,12 +389,14 @@ void repattern_usage(const char * name)
          "Commands:\n"
          "  -c, --contains            attempts to find pattern withing string\n"
          "  -i, --is                  determines if string contains only pattern\n"
+         "  -l, --list                list available submatches\n"
          "  -p, --print               display regular expression\n"
          "Options:\n"
          "  -h, --help                print this help and exit\n"
          "  -I                        ignore upper/lower case distinctions. (REG_ICASE)\n"
          "  -L                        enable newline-sensitive matching (REG_NEWLINE)\n"
          "  -q, --quiet, --silent     do not print messages\n"
+         "  -s  index                 display submatch at index (--contains command only)\n"
          "  -v, --verbose             print verbose messages\n"
          "  -V, --version             print version number and exit\n"
          "Patterns:\n"

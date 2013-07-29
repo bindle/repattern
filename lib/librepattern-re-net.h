@@ -43,6 +43,7 @@
 ///////////////
 
 #include <repattern.h>
+#include "librepattern-re.h"
 
 
 //////////////////
@@ -51,25 +52,16 @@
 //              //
 //////////////////
 
-int repattern_contains_email_address(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags);
-int repattern_contains_host(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags);
-int repattern_contains_hostname(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags);
-int repattern_contains_ip_address(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags);
-int repattern_contains_ip_port(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags);
-int repattern_contains_ipv4_address(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags);
-int repattern_contains_ipv4_port(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags);
-int repattern_contains_ipv6_address(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags);
-int repattern_contains_ipv6_port(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags);
+extern repattern_data repattern_email_address;
+extern repattern_data repattern_host;
+extern repattern_data repattern_hostname;
+extern repattern_data repattern_ip_address;
+extern repattern_data repattern_ip_port;
+extern repattern_data repattern_ipv4_address;
+extern repattern_data repattern_ipv4_port;
+extern repattern_data repattern_ipv6_address;
+extern repattern_data repattern_ipv6_port;
 
-int repattern_is_email_address(const char * str, int re_flags);
-int repattern_is_host(const char * str, int re_flags);
-int repattern_is_hostname(const char * str, int re_flags);
-int repattern_is_ip_address(const char * str, int re_flags);
-int repattern_is_ip_port(const char * str, int re_flags);
-int repattern_is_ipv4_address(const char * str, int re_flags);
-int repattern_is_ipv4_port(const char * str, int re_flags);
-int repattern_is_ipv6_address(const char * str, int re_flags);
-int repattern_is_ipv6_port(const char * str, int re_flags);
 
 
 #endif /* end of header */

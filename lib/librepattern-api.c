@@ -40,9 +40,20 @@
 ///////////////
 
 #include <stdio.h>
+#include <string.h>
 #include <assert.h>
 
 #include "librepattern-re-net.h"
+
+
+//////////////////
+//              //
+//  Prototypes  //
+//              //
+//////////////////
+
+repattern_data * repattern_get_data(int reid);
+repattern_data * repattern_get_ptr(int reid);
 
 
 /////////////////
@@ -51,72 +62,126 @@
 //             //
 /////////////////
 
-int repattern_is(int reid, const char * str, int pflags)
+size_t repattern_cpymatch(char * s1, size_t n1, const char * s2,
+   regmatch_t * match)
+{
+   size_t len;
+
+   assert(s1    != NULL);
+   assert(s2    != NULL);
+   assert(n1     > 0);
+   assert(match != NULL);
+   assert(match->rm_eo >= match->rm_so);
+
+   s1[0] = '\0';
+
+   // calculate length of substring
+   if ((len = (match->rm_eo - match->rm_so)) <= 0)
+      return(0);
+   len++;
+
+   // calculates amount of match which can be copied into limited buffer
+   if (n1 >= len)
+      n1 = len - 1;
+
+   // copies match
+   memcpy(s1, &s2[match->rm_so], n1);
+   s1[n1] = '\0';
+
+   return(len);
+}
+
+
+repattern_data * repattern_get_ptr(int reid)
 {
    assert(reid != 0);
-   assert(str  != NULL);
    switch(reid)
    {
       // net
-      case REPATTERN_RE_EMAIL_ADDRESS:    return(repattern_is_email_address(str, pflags));
-      case REPATTERN_RE_HOST:             return(repattern_is_host(str, pflags));
-      case REPATTERN_RE_HOSTNAME:         return(repattern_is_hostname(str, pflags));
-      case REPATTERN_RE_IP_ADDRESS:       return(repattern_is_ip_address(str, pflags));
-      case REPATTERN_RE_IP_PORT:          return(repattern_is_ip_port(str, pflags));
-      case REPATTERN_RE_IPV4_ADDRESS:     return(repattern_is_ipv4_address(str, pflags));
-      case REPATTERN_RE_IPV4_PORT:        return(repattern_is_ipv4_port(str, pflags));
-      case REPATTERN_RE_IPV6_ADDRESS:     return(repattern_is_ipv6_address(str, pflags));
-      case REPATTERN_RE_IPV6_PORT:        return(repattern_is_ipv6_port(str, pflags));
+      case REPATTERN_RE_EMAIL_ADDRESS:    return(&repattern_email_address);
+      case REPATTERN_RE_HOST:             return(&repattern_host);
+      case REPATTERN_RE_HOSTNAME:         return(&repattern_hostname);
+      case REPATTERN_RE_IP_ADDRESS:       return(&repattern_ip_address);
+      case REPATTERN_RE_IP_PORT:          return(&repattern_ip_port);
+      case REPATTERN_RE_IPV4_ADDRESS:     return(&repattern_ipv4_address);
+      case REPATTERN_RE_IPV4_PORT:        return(&repattern_ipv4_port);
+      case REPATTERN_RE_IPV6_ADDRESS:     return(&repattern_ipv6_address);
+      case REPATTERN_RE_IPV6_PORT:        return(&repattern_ipv6_port);
       default:
       break;
    };
-   return(REG_INVARG);
+   return(NULL);
+}
+
+
+repattern_data * repattern_get_data(int reid)
+{
+   repattern_data * ptr;
+   if ((ptr = repattern_get_ptr(reid)) == NULL)
+      return(NULL);
+
+   if (ptr->nsub == 0)
+   {
+      if ((ptr->subindexes))
+         assert(ptr->subindexes[0] == 0);
+      if ((ptr->subnames))
+         assert(ptr->subnames[0] == NULL);
+      return(ptr);
+   };
+
+   assert(ptr->subindexes[ptr->nsub] == 0);
+   assert(ptr->subnames[ptr->nsub] == NULL);
+
+   return(ptr);
+}
+
+
+int repattern_is(int reid, const char * str, int pflags)
+{
+   repattern_data * ptr;
+   assert(reid != 0);
+   assert(str  != NULL);
+   if ((ptr = repattern_get_data(reid)) == NULL)
+      return(REG_INVARG);
+   return(repattern_re(&ptr->is_state, ptr->preq, str, 0, NULL, NULL, NULL, pflags));
 }
 
 
 int repattern_contains(int reid, const char * str, size_t * nmatchp,
    regmatch_t pmatch[], int pflags)
 {
+   repattern_data * ptr;
    assert(reid != 0);
    assert(str  != NULL);
-   switch(reid)
+   if ((ptr = repattern_get_data(reid)) == NULL)
+      return(REG_INVARG);
+   return(repattern_re(&ptr->contains_state, ptr->preq, str, ptr->nsub, ptr->subindexes, nmatchp, pmatch, pflags));
+}
+
+
+const char ** repattern_labels(int reid, size_t * nsubp)
+{
+   repattern_data * ptr;
+   assert(reid != 0);
+   if ((ptr = repattern_get_data(reid)) == NULL)
    {
-      // net
-      case REPATTERN_RE_EMAIL_ADDRESS:    return(repattern_contains_email_address(str, nmatchp, pmatch, pflags));
-      case REPATTERN_RE_HOST:             return(repattern_contains_host(str, nmatchp, pmatch, pflags));
-      case REPATTERN_RE_HOSTNAME:         return(repattern_contains_hostname(str, nmatchp, pmatch, pflags));
-      case REPATTERN_RE_IP_ADDRESS:       return(repattern_contains_ip_address(str, nmatchp, pmatch, pflags));
-      case REPATTERN_RE_IP_PORT:          return(repattern_contains_ip_port(str, nmatchp, pmatch, pflags));
-      case REPATTERN_RE_IPV4_ADDRESS:     return(repattern_contains_ipv4_address(str, nmatchp, pmatch, pflags));
-      case REPATTERN_RE_IPV4_PORT:        return(repattern_contains_ipv4_port(str, nmatchp, pmatch, pflags));
-      case REPATTERN_RE_IPV6_ADDRESS:     return(repattern_contains_ipv6_address(str, nmatchp, pmatch, pflags));
-      case REPATTERN_RE_IPV6_PORT:        return(repattern_contains_ipv6_port(str, nmatchp, pmatch, pflags));
-      default:
-      break;
+      if ((nsubp))
+         *nsubp = 0;
+      return(NULL);
    };
-   return(REG_INVARG);
+   if ((nsubp))
+      *nsubp = ptr->nsub;
+   return(ptr->subnames);
 }
 
 
 const char * repattern_string(int reid)
 {
+   repattern_data * ptr;
    assert(reid != 0);
-   switch(reid)
-   {
-      // net
-      case REPATTERN_RE_EMAIL_ADDRESS:    return(REPATTERN_EMAIL_ADDRESS);
-      case REPATTERN_RE_HOST:             return(REPATTERN_HOST);
-      case REPATTERN_RE_HOSTNAME:         return(REPATTERN_HOSTNAME);
-      case REPATTERN_RE_IP_ADDRESS:       return(REPATTERN_IP_ADDRESS);
-      case REPATTERN_RE_IP_PORT:          return(REPATTERN_IP_PORT);
-      case REPATTERN_RE_IPV4_ADDRESS:     return(REPATTERN_IPV4_ADDRESS);
-      case REPATTERN_RE_IPV4_PORT:        return(REPATTERN_IPV4_PORT);
-      case REPATTERN_RE_IPV6_ADDRESS:     return(REPATTERN_IPV6_ADDRESS);
-      case REPATTERN_RE_IPV6_PORT:        return(REPATTERN_IPV6_PORT);
-      default:
-      break;
-   };
-   return(NULL);
+   if ((ptr = repattern_get_data(reid)) == NULL)
+      return(NULL);
+   return(ptr->contains_state.pattern);
 }
 
  /* end of source */

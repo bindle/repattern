@@ -40,7 +40,6 @@
 ///////////////
 
 #include <stdio.h>
-#include "librepattern-re.h"
 
 
 /////////////////
@@ -49,153 +48,97 @@
 //             //
 /////////////////
 
-int repattern_contains_email_address(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags)
+static regex_t repattern_regex_email_address;
+repattern_data repattern_email_address =
 {
-   repattern_state  state = REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_EMAIL_ADDRESS, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, nmatchp, pmatch, re_flags));
-}
+   REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_EMAIL_ADDRESS, REPATTERN_CONTAINS_DEFAULT_FLAGS),
+   REPATTERN_IS_STATE_INITIALIZER(REPATTERN_EMAIL_ADDRESS, REPATTERN_IS_DEFAULT_FLAGS),
+   &repattern_regex_email_address,
+   0, NULL, NULL
+};
 
 
-int repattern_contains_host(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags)
+static regex_t repattern_regex_host;
+repattern_data repattern_host =
 {
-   repattern_state  state = REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_HOST, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, nmatchp, pmatch, re_flags));
-}
+   REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_HOST, REPATTERN_CONTAINS_DEFAULT_FLAGS),
+   REPATTERN_IS_STATE_INITIALIZER(REPATTERN_HOST, REPATTERN_IS_DEFAULT_FLAGS),
+   &repattern_regex_host,
+   0, NULL, NULL
+};
 
 
-int repattern_contains_hostname(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags)
+static regex_t repattern_regex_hostname;
+repattern_data repattern_hostname =
 {
-   repattern_state  state = REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_HOSTNAME, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, nmatchp, pmatch, re_flags));
-}
+   REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_HOSTNAME, REPATTERN_CONTAINS_DEFAULT_FLAGS),
+   REPATTERN_IS_STATE_INITIALIZER(REPATTERN_HOSTNAME, REPATTERN_IS_DEFAULT_FLAGS),
+   &repattern_regex_hostname,
+   0, NULL, NULL
+};
 
 
-int repattern_contains_ip_address(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags)
+static regex_t repattern_regex_ip_address;
+repattern_data repattern_ip_address =
 {
-   repattern_state  state = REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_IP_ADDRESS, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, nmatchp, pmatch, re_flags));
-}
+   REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_IP_ADDRESS, REPATTERN_CONTAINS_DEFAULT_FLAGS),
+   REPATTERN_IS_STATE_INITIALIZER(REPATTERN_IP_ADDRESS, REPATTERN_IS_DEFAULT_FLAGS),
+   &repattern_regex_ip_address,
+   0, NULL, NULL
+};
 
 
-int repattern_contains_ip_port(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags)
+static regex_t repattern_regex_ip_port;
+repattern_data repattern_ip_port =
 {
-   repattern_state  state = REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_IP_PORT, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, nmatchp, pmatch, re_flags));
-}
+   REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_IP_PORT, REPATTERN_CONTAINS_DEFAULT_FLAGS),
+   REPATTERN_IS_STATE_INITIALIZER(REPATTERN_IP_PORT, REPATTERN_IS_DEFAULT_FLAGS),
+   &repattern_regex_ip_port,
+   0, NULL, NULL
+};
 
 
-int repattern_contains_ipv4_address(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags)
+static regex_t repattern_regex_ipv4_address;
+repattern_data repattern_ipv4_address =
 {
-   repattern_state  state = REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_IPV4_ADDRESS, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, nmatchp, pmatch, re_flags));
-}
+   REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_IPV4_ADDRESS, REPATTERN_CONTAINS_DEFAULT_FLAGS),
+   REPATTERN_IS_STATE_INITIALIZER(REPATTERN_IPV4_ADDRESS, REPATTERN_IS_DEFAULT_FLAGS),
+   &repattern_regex_ipv4_address,
+   0, NULL, NULL
+};
 
 
-int repattern_contains_ipv4_port(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags)
+static regex_t repattern_regex_ipv4_port;
+repattern_data repattern_ipv4_port =
 {
-   repattern_state  state = REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_IPV4_PORT, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, nmatchp, pmatch, re_flags));
-}
+   REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_IPV6_ADDRESS, REPATTERN_CONTAINS_DEFAULT_FLAGS),
+   REPATTERN_IS_STATE_INITIALIZER(REPATTERN_IPV6_ADDRESS, REPATTERN_IS_DEFAULT_FLAGS),
+   &repattern_regex_ipv4_port,
+   0, NULL, NULL
+};
 
 
-int repattern_contains_ipv6_address(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags)
+static regex_t repattern_regex_ipv6_address;
+repattern_data repattern_ipv6_address =
 {
-   repattern_state  state = REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_IPV6_ADDRESS, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, nmatchp, pmatch, re_flags));
-}
+   REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_IPV6_ADDRESS, REPATTERN_CONTAINS_DEFAULT_FLAGS),
+   REPATTERN_IS_STATE_INITIALIZER(REPATTERN_IPV6_ADDRESS, REPATTERN_IS_DEFAULT_FLAGS),
+   &repattern_regex_ipv6_address,
+   //0, NULL, NULL
+   3,
+   (const char *[5]){  "IP Address", "Link-local Address", "Link-local Zone", NULL},
+   (const size_t [5]){ 0,            17,                   19,                0 }
+};
 
 
-int repattern_contains_ipv6_port(const char * str, size_t * nmatchp, regmatch_t pmatch[], int re_flags)
+static regex_t repattern_regex_ipv6_port;
+repattern_data repattern_ipv6_port =
 {
-   repattern_state  state = REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_IPV6_PORT, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, nmatchp, pmatch, re_flags));
-}
+   REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_IPV6_ADDRESS, REPATTERN_CONTAINS_DEFAULT_FLAGS),
+   REPATTERN_IS_STATE_INITIALIZER(REPATTERN_IPV6_ADDRESS, REPATTERN_IS_DEFAULT_FLAGS),
+   &repattern_regex_ipv6_port,
+   0, NULL, NULL
+};
 
-
-//////////////////////
-//                  //
-//  "is" Functions  //
-//                  //
-//////////////////////
-
-int repattern_is_email_address(const char * str, int re_flags)
-{
-   repattern_state  state = REPATTERN_IS_STATE_INITIALIZER(REPATTERN_EMAIL_ADDRESS, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, NULL, NULL, re_flags));
-}
-
-
-int repattern_is_host(const char * str, int re_flags)
-{
-   repattern_state  state = REPATTERN_IS_STATE_INITIALIZER(REPATTERN_HOST, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, NULL, NULL, re_flags));
-}
-
-
-int repattern_is_hostname(const char * str, int re_flags)
-{
-   repattern_state  state = REPATTERN_IS_STATE_INITIALIZER(REPATTERN_HOSTNAME, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, NULL, NULL, re_flags));
-}
-
-
-int repattern_is_ip_address(const char * str, int re_flags)
-{
-   repattern_state  state = REPATTERN_IS_STATE_INITIALIZER(REPATTERN_IP_ADDRESS, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, NULL, NULL, re_flags));
-}
-
-
-int repattern_is_ip_port(const char * str, int re_flags)
-{
-   repattern_state  state = REPATTERN_IS_STATE_INITIALIZER(REPATTERN_IP_PORT, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, NULL, NULL, re_flags));
-}
-
-
-int repattern_is_ipv4_address(const char * str, int re_flags)
-{
-   repattern_state  state = REPATTERN_IS_STATE_INITIALIZER(REPATTERN_IPV4_ADDRESS, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, NULL, NULL, re_flags));
-}
-
-
-int repattern_is_ipv4_port(const char * str, int re_flags)
-{
-   repattern_state  state = REPATTERN_IS_STATE_INITIALIZER(REPATTERN_IPV4_PORT, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, NULL, NULL, re_flags));
-}
-
-
-int repattern_is_ipv6_address(const char * str, int re_flags)
-{
-   repattern_state  state = REPATTERN_IS_STATE_INITIALIZER(REPATTERN_IPV6_ADDRESS, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, NULL, NULL, re_flags));
-}
-
-
-int repattern_is_ipv6_port(const char * str, int re_flags)
-{
-   repattern_state  state = REPATTERN_IS_STATE_INITIALIZER(REPATTERN_IPV6_PORT, REPATTERN_DEFAULT_FLAGS);
-   static regex_t   req;
-   return(repattern_re(&state, &req, str, NULL, NULL, re_flags));
-}
 
 /* end of source */

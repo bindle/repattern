@@ -40,6 +40,8 @@
 ///////////////
 
 #include <pthread.h>
+#include <string.h>
+#include <stdlib.h>
 
 
 /////////////////
@@ -50,34 +52,82 @@
 
 
 int repattern_re(repattern_state * state, regex_t * preq,
-   const char * str, size_t * nmatchp, regmatch_t pmatch[], int flags)
+   const char * str, size_t nsub, const size_t * subind, size_t * nmatchp,
+   regmatch_t pmatch[], int flags)
 {
-   int    err;
-   size_t nmatch;
+   int          err;
+   regmatch_t * local_pmatch;
+   size_t       size;
+   size_t       nmatch;
+   size_t       pos;
 
-   err = 0;
+   // initializes regex and regex matches array
    pthread_mutex_lock(&state->mutex);
    if (!(state->initialized))
    {
+      // compiles regugulare expressions
+      if ((err = regcomp(preq, state->pattern, REG_EXTENDED)) != 0)
+      {
+         pthread_mutex_unlock(&state->mutex);
+         return(err);
+      };
       state->initialized++;
-      err = regcomp(preq, state->pattern, state->flags);
    };
    pthread_mutex_unlock(&state->mutex);
-   if ((err))
-      return(err);
 
+   // adjusts nsub
+   if (nsub > preq->re_nsub)
+      nsub = preq->re_nsub;
+
+   // allocates memory for sub matches
+   size  = sizeof(regmatch_t);
+   size *= preq->re_nsub;
+   if ((local_pmatch = malloc(size)) == NULL)
+      return(REG_ESPACE);
+   memset(local_pmatch, 0, size);
+
+   // determines number of matches
    nmatch = 0;
    if ((nmatchp))
    {
       nmatch = *nmatchp;
-      if (*nmatchp > preq->re_nsub)
+      if ((*nmatchp > nsub) && (nsub > 0))
+      {
+         nmatch   = nsub;
+         *nmatchp = nmatch;
+      }
+      else if (*nmatchp > preq->re_nsub)
       {
          nmatch   = preq->re_nsub;
          *nmatchp = nmatch;
       };
    };
 
-   return(regexec(preq, str, nmatch, pmatch, flags));
+   // executes regular expressions
+   flags = 0;
+   if ((err = regexec(preq, str, preq->re_nsub, local_pmatch, flags)) != 0)
+   {
+      pthread_mutex_unlock(&state->mutex);
+      return(err);
+   };
+
+   // copies result
+   if ( ((nmatchp)) && (nsub > 0) )
+   {
+      size  = sizeof(regmatch_t);
+      for(pos = 0; pos < nsub; pos++)
+         memcpy(&pmatch[pos], &local_pmatch[subind[pos]], size);
+   }
+   else if ((nmatchp))
+   {
+      size  = sizeof(regmatch_t);
+      size *= nmatch;
+      memcpy(pmatch, local_pmatch, size);
+   };
+
+   free(local_pmatch);
+
+   return(err);
 }
 
 

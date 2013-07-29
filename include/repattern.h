@@ -70,6 +70,13 @@ const char * repattern_api_version_info(void);
 int repattern_is(int reid, const char * str, int pflags);
 int repattern_contains(int reid, const char * str, size_t * nmatchp,
    regmatch_t pmatch[], int pflags);
+
+// meta information
 const char * repattern_string(int reid);
+const char ** repattern_labels(int reid, size_t * nsubp);
+
+// convenience functions
+size_t repattern_cpymatch(char * s1, size_t n1, const char * s2,
+   regmatch_t * match);
 
 #endif /* end of header */

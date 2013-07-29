@@ -49,6 +49,12 @@ repattern_version_string
 # regex functions
 repattern_is
 repattern_contains
+#
+# convenience functions
+repattern_cpymatch
+#
+# meta functions
+repattern_labels
 repattern_string
 #
 # end of symbol export file

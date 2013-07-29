@@ -132,8 +132,8 @@
 		A0C4C68317A4FA05008E856D /* include */ = {
 			isa = PBXGroup;
 			children = (
-				A0C4C6A517A50704008E856D /* repattern-net.h */,
 				A0C4C68C17A4FBB1008E856D /* repattern.h */,
+				A0C4C6A517A50704008E856D /* repattern-net.h */,
 			);
 			path = include;
 			sourceTree = "<group>";

@@ -71,9 +71,6 @@ bin_SCRIPTS				=
 sbin_SCRIPTS				=
 
 # lists
-SRCHEADERS				= $(srcdir)/include/repattern-strings-header.h \
-					  $(srcdir)/include/repattern-strings-internet.h \
-					  $(srcdir)/include/repattern-strings-footer.h
 BUILT_SOURCES				=
 TESTS					= $(noinst_SCRIPTS)
 XFAIL_TESTS				=
@@ -89,8 +86,7 @@ EXTRA_DIST				= build-aux/git-tar-name.txt \
 					  contrib/bindletools/include/bindle/regex.h \
 					  contrib/bindletools/m4/bindle-gcc.m4 \
 					  contrib/bindletools/m4/bindle-git.m4 \
-					  lib/librepattern.sym \
-					  $(SRCHEADERS)
+					  lib/librepattern.sym
 CLEANFILES				= \
 					  $(builddir)/a.out   $(srcdir)/a.out \
 					  $(builddir)/*/a.out $(srcdir)/*/a.out \
