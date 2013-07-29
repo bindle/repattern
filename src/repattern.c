@@ -266,6 +266,7 @@ int main(int argc, char * argv[])
       {
          if ((len = (int)(matches[0].rm_eo - matches[0].rm_so)) > 0)
          {
+            memset(str, 0, 1024);
             strncpy(str, &arg[matches[0].rm_so], (size_t)len);
             if (verbose > 1)
                printf("match: ");
@@ -278,6 +279,7 @@ int main(int argc, char * argv[])
          {
             if ((len = (int)(matches[c].rm_eo - matches[c].rm_so)) > 0)
             {
+               memset(str, 0, 1024);
                strncpy(str, &arg[matches[c].rm_so], (size_t)len);
                printf("submatch %i: %s\n", c, str);
             };
