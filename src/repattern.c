@@ -253,27 +253,26 @@ int main(int argc, char * argv[])
          printf("regular expression: %s\n", repattern_string(reid));
       nmatch = REPATTERN_MAX_MATCHES;
       err = repattern_contains(reid, arg, &nmatch, matches, re_flags);
-      if (!(quiet))
+      if ((quiet))
+         break;
+      if ((err))
       {
-         if (!(err))
-         {
-            if (verbose > 0)
-            {
-               if ((len = (int)(matches[0].rm_eo - matches[0].rm_so)) > 0)
-               {
-                  strncpy(str, &arg[matches[0].rm_so], (size_t)len);
-                  if (verbose > 1)
-                     printf("match: ");
-                  printf("%s\n", str);
-               };
-            } else {
-               printf("found\n");
-            };
-         }
-         else
-            printf("not found\n");
+         printf("not found\n");
+         break;
       };
-      if ( (verbose > 2) && (!(err)) )
+      if (verbose < 1)
+         printf("found\n");
+      if (verbose > 0)
+      {
+         if ((len = (int)(matches[0].rm_eo - matches[0].rm_so)) > 0)
+         {
+            strncpy(str, &arg[matches[0].rm_so], (size_t)len);
+            if (verbose > 1)
+               printf("match: ");
+            printf("%s\n", str);
+         };
+      };
+      if (verbose > 2)
       {
          for(c = 0; c < (int)nmatch; c++)
          {
