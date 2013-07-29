@@ -183,8 +183,13 @@ int main(int argc, char * argv[])
          break;
 
          case 'q':
+         if ((verbose))
+         {
+            fprintf(stderr, "%s: conflicting options -- '-v' and '-q'\n", prog_name(argv[0]));
+            fprintf(stderr, "Try `%s --help' for more information.\n", prog_name(argv[0]));
+            return(1);
+         };
          quiet++;
-         verbose = 0;
          break;
 
          case 'V':
@@ -192,7 +197,12 @@ int main(int argc, char * argv[])
          return(0);
 
          case 'v':
-         quiet = 0;
+         if ((quiet))
+         {
+            fprintf(stderr, "%s: conflicting options -- '-v' and '-q'\n", prog_name(argv[0]));
+            fprintf(stderr, "Try `%s --help' for more information.\n", prog_name(argv[0]));
+            return(1);
+         };
          verbose++;
          break;
 
