@@ -104,7 +104,9 @@ repattern_data repattern_ipv4_address =
    REPATTERN_CONTAINS_STATE_INITIALIZER(REPATTERN_IPV4_ADDRESS, REPATTERN_CONTAINS_DEFAULT_FLAGS),
    REPATTERN_IS_STATE_INITIALIZER(REPATTERN_IPV4_ADDRESS, REPATTERN_IS_DEFAULT_FLAGS),
    &repattern_regex_ipv4_address,
-   0, NULL, NULL
+   5,
+   (const char *[6]){  "IP Address", "First Octet", "Second Octet", "Third Octet", "Fourth Octet", NULL},
+   (const size_t [6]){ 0,            2,             4,              6,             8,              0 }
 };
 
 
