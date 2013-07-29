@@ -31,7 +31,7 @@
  *
  *  @BINDLE_BINARIES_BSD_LICENSE_END@
  */
-#include "librepattern-re-internet.h"
+#include "librepattern-re-net.h"
 
 ///////////////
 //           //

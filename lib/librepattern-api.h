@@ -44,9 +44,6 @@
 
 #include <repattern.h>
 
-#include "librepattern-re-internet.h"
-
-
 
 //////////////////
 //              //

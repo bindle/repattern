@@ -33,8 +33,8 @@
  */
 /**
  */
-#ifndef _LIBREPATTERN_RE_INTERNET_H
-#define _LIBREPATTERN_RE_INTERNET_H 1
+#ifndef _LIBREPATTERN_RE_NET_H
+#define _LIBREPATTERN_RE_NET_H 1
 
 ///////////////
 //           //

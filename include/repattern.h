@@ -44,26 +44,7 @@
 
 #include <inttypes.h>
 #include <regex.h>
-#include <repattern-strings.h>
-
-
-///////////////////
-//               //
-//  Definitions  //
-//               //
-///////////////////
-
-// internet patterns
-#define REPATTERN_RE_EMAIL_ADDRESS     0x0100
-#define REPATTERN_RE_HOST              0x0101
-#define REPATTERN_RE_HOSTNAME          0x0102
-#define REPATTERN_RE_IP_ADDRESS        0x0103
-#define REPATTERN_RE_IP_PORT           0x0104
-#define REPATTERN_RE_IPV4_ADDRESS      0x0105
-#define REPATTERN_RE_IPV4_PORT         0x0106
-#define REPATTERN_RE_IPV6_ADDRESS      0x0107
-#define REPATTERN_RE_IPV6_PORT         0x0108
-#define REPATTERN_RE_URL               0x0109
+#include <repattern-net.h>
 
 
 //////////////////

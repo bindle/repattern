@@ -10,7 +10,7 @@
 		A0C4C68D17A4FBB1008E856D /* repattern.h in Headers */ = {isa = PBXBuildFile; fileRef = A0C4C68C17A4FBB1008E856D /* repattern.h */; };
 		A0C4C69017A4FBBB008E856D /* librepattern-version.c in Sources */ = {isa = PBXBuildFile; fileRef = A0C4C68E17A4FBBB008E856D /* librepattern-version.c */; };
 		A0C4C69117A4FBBB008E856D /* librepattern-version.h in Headers */ = {isa = PBXBuildFile; fileRef = A0C4C68F17A4FBBB008E856D /* librepattern-version.h */; };
-		A0C4C6A617A50B9C008E856D /* librepattern-re-internet.c in Sources */ = {isa = PBXBuildFile; fileRef = A0C4C69F17A5010D008E856D /* librepattern-re-internet.c */; };
+		A0C4C6A617A50B9C008E856D /* librepattern-re-net.c in Sources */ = {isa = PBXBuildFile; fileRef = A0C4C69F17A5010D008E856D /* librepattern-re-net.c */; };
 		A0C4C6AA17A50E15008E856D /* librepattern-re.c in Sources */ = {isa = PBXBuildFile; fileRef = A0C4C6A817A50E15008E856D /* librepattern-re.c */; };
 		A0C4C6AB17A50E15008E856D /* librepattern-re.h in Headers */ = {isa = PBXBuildFile; fileRef = A0C4C6A917A50E15008E856D /* librepattern-re.h */; };
 		A0C4C6AE17A51644008E856D /* librepattern-api.c in Sources */ = {isa = PBXBuildFile; fileRef = A0C4C6AC17A51644008E856D /* librepattern-api.c */; };
@@ -62,12 +62,9 @@
 		A0C4C68F17A4FBBB008E856D /* librepattern-version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "librepattern-version.h"; sourceTree = "<group>"; };
 		A0C4C69317A4FC29008E856D /* bindletools.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = bindletools.xcodeproj; path = contrib/bindletools/bindletools.xcodeproj; sourceTree = "<group>"; };
 		A0C4C69C17A4FD7A008E856D /* librepattern.sym */ = {isa = PBXFileReference; explicitFileType = text.script; path = librepattern.sym; sourceTree = "<group>"; };
-		A0C4C69F17A5010D008E856D /* librepattern-re-internet.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "librepattern-re-internet.c"; sourceTree = "<group>"; };
-		A0C4C6A017A5010D008E856D /* librepattern-re-internet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "librepattern-re-internet.h"; sourceTree = "<group>"; };
-		A0C4C6A317A50704008E856D /* repattern-strings-footer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "repattern-strings-footer.h"; sourceTree = "<group>"; };
-		A0C4C6A417A50704008E856D /* repattern-strings-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "repattern-strings-header.h"; sourceTree = "<group>"; };
-		A0C4C6A517A50704008E856D /* repattern-strings-internet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "repattern-strings-internet.h"; sourceTree = "<group>"; };
-		A0C4C6A717A50C32008E856D /* repattern-strings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "repattern-strings.h"; sourceTree = "<group>"; };
+		A0C4C69F17A5010D008E856D /* librepattern-re-net.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "librepattern-re-net.c"; sourceTree = "<group>"; };
+		A0C4C6A017A5010D008E856D /* librepattern-re-net.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "librepattern-re-net.h"; sourceTree = "<group>"; };
+		A0C4C6A517A50704008E856D /* repattern-net.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "repattern-net.h"; sourceTree = "<group>"; };
 		A0C4C6A817A50E15008E856D /* librepattern-re.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "librepattern-re.c"; sourceTree = "<group>"; };
 		A0C4C6A917A50E15008E856D /* librepattern-re.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "librepattern-re.h"; sourceTree = "<group>"; };
 		A0C4C6AC17A51644008E856D /* librepattern-api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "librepattern-api.c"; sourceTree = "<group>"; };
@@ -135,10 +132,7 @@
 		A0C4C68317A4FA05008E856D /* include */ = {
 			isa = PBXGroup;
 			children = (
-				A0C4C6A717A50C32008E856D /* repattern-strings.h */,
-				A0C4C6A317A50704008E856D /* repattern-strings-footer.h */,
-				A0C4C6A417A50704008E856D /* repattern-strings-header.h */,
-				A0C4C6A517A50704008E856D /* repattern-strings-internet.h */,
+				A0C4C6A517A50704008E856D /* repattern-net.h */,
 				A0C4C68C17A4FBB1008E856D /* repattern.h */,
 			);
 			path = include;
@@ -152,8 +146,8 @@
 				A0C4C6AD17A51644008E856D /* librepattern-api.h */,
 				A0C4C6A817A50E15008E856D /* librepattern-re.c */,
 				A0C4C6A917A50E15008E856D /* librepattern-re.h */,
-				A0C4C69F17A5010D008E856D /* librepattern-re-internet.c */,
-				A0C4C6A017A5010D008E856D /* librepattern-re-internet.h */,
+				A0C4C69F17A5010D008E856D /* librepattern-re-net.c */,
+				A0C4C6A017A5010D008E856D /* librepattern-re-net.h */,
 				A0C4C68E17A4FBBB008E856D /* librepattern-version.c */,
 				A0C4C68F17A4FBBB008E856D /* librepattern-version.h */,
 			);
@@ -301,7 +295,7 @@
 				A0C4C69017A4FBBB008E856D /* librepattern-version.c in Sources */,
 				A0C4C6AA17A50E15008E856D /* librepattern-re.c in Sources */,
 				A0C4C6AE17A51644008E856D /* librepattern-api.c in Sources */,
-				A0C4C6A617A50B9C008E856D /* librepattern-re-internet.c in Sources */,
+				A0C4C6A617A50B9C008E856D /* librepattern-re-net.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

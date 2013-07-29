@@ -42,7 +42,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-#include "librepattern-re-internet.h"
+#include "librepattern-re-net.h"
 
 
 /////////////////
@@ -57,7 +57,7 @@ int repattern_is(int reid, const char * str, int pflags)
    assert(str  != NULL);
    switch(reid)
    {
-      // internet
+      // net
       case REPATTERN_RE_EMAIL_ADDRESS:    return(repattern_is_email_address(str, pflags));
       case REPATTERN_RE_HOST:             return(repattern_is_host(str, pflags));
       case REPATTERN_RE_HOSTNAME:         return(repattern_is_hostname(str, pflags));
@@ -81,7 +81,7 @@ int repattern_contains(int reid, const char * str, size_t * nmatchp,
    assert(str  != NULL);
    switch(reid)
    {
-      // internet
+      // net
       case REPATTERN_RE_EMAIL_ADDRESS:    return(repattern_contains_email_address(str, nmatchp, pmatch, pflags));
       case REPATTERN_RE_HOST:             return(repattern_contains_host(str, nmatchp, pmatch, pflags));
       case REPATTERN_RE_HOSTNAME:         return(repattern_contains_hostname(str, nmatchp, pmatch, pflags));
@@ -103,7 +103,7 @@ const char * repattern_string(int reid)
    assert(reid != 0);
    switch(reid)
    {
-      // internet
+      // net
       case REPATTERN_RE_EMAIL_ADDRESS:    return(REPATTERN_EMAIL_ADDRESS);
       case REPATTERN_RE_HOST:             return(REPATTERN_HOST);
       case REPATTERN_RE_HOSTNAME:         return(REPATTERN_HOSTNAME);

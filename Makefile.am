@@ -57,7 +57,7 @@ DEFS					=
 check_PROGRAMS				=
 doc_DATA				=
 include_HEADERS				= include/repattern.h \
-					  include/repattern-strings.h
+					  include/repattern-net.h
 lib_LTLIBRARIES				= lib/librepattern.la
 man_MANS				=
 info_TEXINFOS				=
@@ -74,7 +74,7 @@ sbin_SCRIPTS				=
 SRCHEADERS				= $(srcdir)/include/repattern-strings-header.h \
 					  $(srcdir)/include/repattern-strings-internet.h \
 					  $(srcdir)/include/repattern-strings-footer.h
-BUILT_SOURCES				= include/repattern-strings.h
+BUILT_SOURCES				=
 TESTS					= $(noinst_SCRIPTS)
 XFAIL_TESTS				=
 EXTRA_MANS				=
@@ -113,8 +113,8 @@ lib_librepattern_la_SOURCES		= \
 					  lib/librepattern-api.h \
 					  lib/librepattern-re.c \
 					  lib/librepattern-re.h \
-					  lib/librepattern-re-internet.c \
-					  lib/librepattern-re-internet.h \
+					  lib/librepattern-re-net.c \
+					  lib/librepattern-re-net.h \
 					  lib/librepattern-version.c \
 					  lib/librepattern-version.h
 
@@ -135,11 +135,6 @@ include $(srcdir)/contrib/bindletools/build-aux/makefile-version.am
 
 # custom targets
 .PHONY:
-
-include/repattern-strings.h: Makefile $(SRCHEADERS)
-	@mkdir -p `dirname $(@)`
-	@rm -f $(@)
-	cat $(SRCHEADERS) > $(@) || rm -f $(@)
 
 
 # local targets
