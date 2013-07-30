@@ -308,6 +308,12 @@ int main(int argc, char * argv[])
       case REPATTERN_CMD_CONTAINS:
       nmatch = REPATTERN_MAX_MATCHES;
       err = repattern_contains(reid, argv[optind], &nmatch, matches, re_flags);
+      if (((err)) && ((err != REG_NOMATCH)))
+      {
+         regerror(err, NULL, str, 1024);
+         fprintf(stderr, "%s: %s\n", prog_name(argv[0]), str);
+         return(1);
+      };
 
       if ((quiet))
          break;
@@ -331,6 +337,13 @@ int main(int argc, char * argv[])
 
       case REPATTERN_CMD_IS:
       err = repattern_is(reid, argv[optind], re_flags);
+      if (((err)) && ((err != REG_NOMATCH)))
+      {
+         regerror(err, NULL, str, 1024);
+         fprintf(stderr, "%s: %s\n", prog_name(argv[0]), str);
+         return(1);
+      };
+
       if ((quiet))
          break;
       if (!(err))
